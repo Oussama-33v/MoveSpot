@@ -4,7 +4,6 @@
 // Aucune solution n'est fournie : à vous de jouer !
 // ============================================================
 
-
 // ------------------------------------------------------------
 // ÉTAPE 0 : Découvrir les données
 // ------------------------------------------------------------
@@ -13,7 +12,7 @@
 //  - Que contient un cours ? Et un créneau ?
 //  - Comment accéder au prix du 2e cours ? Au 1er créneau du 3e cours ?
 // TODO : affichez `cours` dans la console avec console.log(), puis explorez-le.
-
+console.log(cours);
 
 // ------------------------------------------------------------
 // ÉTAPE 1 : Sélectionner les éléments du DOM
@@ -24,8 +23,19 @@
 //  summary-count, summary-total, confirm-button, message
 // TODO : récupérez ces éléments et rangez-les dans des constantes.
 // Question : quelle est la différence entre getElementById et querySelector ?
+const container = document.querySelectorAll('#courses-container')
+const courseTitle = document.getElementById('selected-course-title')
 
+const slotsContainer = document.getElementById('slots-container')
+const seatsContainer = document.getElementById('seats-container')
 
+const summaryCourse = document.getElementById('summary-count');
+const summarySeats = document.getElementById('summary-seats')
+const summaryCount = document.getElementById('summary-count')
+const summaryTotal = document.getElementById('summary-total')
+
+const confirmButton = document.getElementById('confirm-button')
+const message = document.getElementById('message')
 // ------------------------------------------------------------
 // ÉTAPE 2 : État de l'application
 // ------------------------------------------------------------
@@ -35,7 +45,7 @@
 //  (cours choisi, créneau choisi, emplacements choisis...)
 // Indice : pourquoi un tableau est-il adapté pour les emplacements choisis ?
 
-
+const cart_choises = [];
 // ------------------------------------------------------------
 // ÉTAPE 3 : Afficher les cours (US01)
 // ------------------------------------------------------------
@@ -47,8 +57,21 @@
 //  - Quelle boucle ou méthode de tableau allez-vous utiliser ?
 //  - Comment stocker l'id du cours sur la carte (indice : data-*) ?
 //  - Les template literals (`...${valeur}...`) peuvent-ils vous aider ?
+let article = '';
+cours.forEach((cour) => {
 
-
+  article += `<article class="cursor-pointer overflow-hidden rounded-2xl bg-white shadow-sm transition hover:shadow-md" data-id=${cour.id}>
+            <img src=${cour.image} alt="Visuel du cours Yoga Flow" class="h-36 w-full object-cover" />
+            <div class="space-y-1 p-4">
+              <span class="inline-block rounded-full bg-teal-50 px-2.5 py-0.5 text-xs font-medium text-teal-700">${cour.categorie}</span>
+              <h3 class="text-lg font-semibold text-slate-900">${cour.nom}</h3>
+              <p class="text-sm text-slate-600">${cour.duree}, avec Camille Roux</p>
+              <p class="pt-1 text-base font-bold text-slate-900">${cour.prix} € <span class="text-sm font-normal text-slate-500">par place</span></p>
+            </div>
+            </article>
+          `
+          article.innerHTML = article
+})
 // ------------------------------------------------------------
 // ÉTAPE 4 : Sélectionner un cours (US02)
 // ------------------------------------------------------------
@@ -60,6 +83,16 @@
 //  - Faut-il un écouteur par carte, ou un seul sur le conteneur ? Quels sont les avantages ?
 //  - Comment retrouver le cours à partir de l'id lu dans la carte ?
 //  - Que faut-il réinitialiser quand on change de cours ?
+console.log(container);
+
+container.forEach(function(carts){
+  carts.addEventListener('click', function() {
+    container.forEach(function(item){
+      item.classList.remove('ring-2', 'ring-teal-600')
+    });
+    carts.classList.add('ring-2', 'ring-teal-600')
+  })
+})
 
 
 // ------------------------------------------------------------
