@@ -32,7 +32,7 @@ const seatsContainer = document.getElementById('seats-container')
 const summaryCourse = document.getElementById('summary-count');
 const summarySeats = document.getElementById('summary-seats')
 const summaryCount = document.getElementById('summary-count')
-const summaryTotal = document.getElementById('summary-total')
+const summaryTotal = document.getElementById('summary-total') 
 
 const confirmButton = document.getElementById('confirm-button')
 const message = document.getElementById('message')
@@ -58,8 +58,9 @@ const cart_choises = [];
 //  - Quelle boucle ou méthode de tableau allez-vous utiliser ?
 //  - Comment stocker l'id du cours sur la carte (indice : data-*) ?
 //  - Les template literals (`...${valeur}...`) peuvent-ils vous aider ?
+
 cours.forEach((cour) => {
-  container.innerHTML += `<article class="cursor-pointer overflow-hidden rounded-2xl bg-white shadow-sm transition hover:shadow-md" data-id=${cour.id}>
+  container.innerHTML += `<article class="cursor-pointer overflow-hidden ring-teal-600 rounded-2xl bg-white shadow-sm transition hover:shadow-md" data-id=${cour.id}>
             <img src=${cour.image} alt="Visuel du cours Yoga Flow" class="h-36 w-full object-cover" />
             <div class="space-y-1 p-4">
               <span class="inline-block rounded-full bg-teal-50 px-2.5 py-0.5 text-xs font-medium text-teal-700">${cour.categorie}</span>
@@ -81,17 +82,15 @@ cours.forEach((cour) => {
 //  - Faut-il un écouteur par carte, ou un seul sur le conteneur ? Quels sont les avantages ?
 //  - Comment retrouver le cours à partir de l'id lu dans la carte ?
 //  - Que faut-il réinitialiser quand on change de cours ?
-console.log(container);
-
-container.forEach(function (carts) {
-  carts.addEventListener('click', function () {
-    container.forEach(function (item) {
-      item.classList.remove('ring-2', 'ring-teal-600')
+const containerItems = document.querySelectorAll('#courses-container article');
+containerItems.forEach((carte) =>{
+  carte.addEventListener('click', ()=>{
+    containerItems.forEach((item)=>{
+      item.classList.remove('ring-2', 'ring-teal-600');
     });
-    carts.classList.add('ring-2', 'ring-teal-600');
-  })
+    carte.classList.add('ring-2', 'ring-teal-600');
+  });
 });
-
 // ------------------------------------------------------------
 // ÉTAPE 5 : Afficher et sélectionner un créneau (US03)
 // ------------------------------------------------------------
