@@ -23,7 +23,7 @@ console.log(cours);
 //  summary-count, summary-total, confirm-button, message
 // TODO : récupérez ces éléments et rangez-les dans des constantes.
 // Question : quelle est la différence entre getElementById et querySelector ?
-const container = document.querySelectorAll('#courses-container')
+const container = document.getElementById('courses-container')
 const courseTitle = document.getElementById('selected-course-title')
 
 const slotsContainer = document.getElementById('slots-container')
@@ -46,6 +46,7 @@ const message = document.getElementById('message')
 // Indice : pourquoi un tableau est-il adapté pour les emplacements choisis ?
 
 const cart_choises = [];
+
 // ------------------------------------------------------------
 // ÉTAPE 3 : Afficher les cours (US01)
 // ------------------------------------------------------------
@@ -57,10 +58,8 @@ const cart_choises = [];
 //  - Quelle boucle ou méthode de tableau allez-vous utiliser ?
 //  - Comment stocker l'id du cours sur la carte (indice : data-*) ?
 //  - Les template literals (`...${valeur}...`) peuvent-ils vous aider ?
-let article = '';
 cours.forEach((cour) => {
-
-  article += `<article class="cursor-pointer overflow-hidden rounded-2xl bg-white shadow-sm transition hover:shadow-md" data-id=${cour.id}>
+  container.innerHTML += `<article class="cursor-pointer overflow-hidden rounded-2xl bg-white shadow-sm transition hover:shadow-md" data-id=${cour.id}>
             <img src=${cour.image} alt="Visuel du cours Yoga Flow" class="h-36 w-full object-cover" />
             <div class="space-y-1 p-4">
               <span class="inline-block rounded-full bg-teal-50 px-2.5 py-0.5 text-xs font-medium text-teal-700">${cour.categorie}</span>
@@ -68,10 +67,9 @@ cours.forEach((cour) => {
               <p class="text-sm text-slate-600">${cour.duree}, avec Camille Roux</p>
               <p class="pt-1 text-base font-bold text-slate-900">${cour.prix} € <span class="text-sm font-normal text-slate-500">par place</span></p>
             </div>
-            </article>
-          `
-          article.innerHTML = article
+            </article>`;
 })
+
 // ------------------------------------------------------------
 // ÉTAPE 4 : Sélectionner un cours (US02)
 // ------------------------------------------------------------
@@ -85,15 +83,14 @@ cours.forEach((cour) => {
 //  - Que faut-il réinitialiser quand on change de cours ?
 console.log(container);
 
-container.forEach(function(carts){
-  carts.addEventListener('click', function() {
-    container.forEach(function(item){
+container.forEach(function (carts) {
+  carts.addEventListener('click', function () {
+    container.forEach(function (item) {
       item.classList.remove('ring-2', 'ring-teal-600')
     });
-    carts.classList.add('ring-2', 'ring-teal-600')
+    carts.classList.add('ring-2', 'ring-teal-600');
   })
-})
-
+});
 
 // ------------------------------------------------------------
 // ÉTAPE 5 : Afficher et sélectionner un créneau (US03)
