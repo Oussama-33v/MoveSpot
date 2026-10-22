@@ -32,7 +32,7 @@ const seatsContainer = document.getElementById('seats-container')
 const summaryCourse = document.getElementById('summary-count');
 const summarySeats = document.getElementById('summary-seats')
 const summaryCount = document.getElementById('summary-count')
-const summaryTotal = document.getElementById('summary-total') 
+const summaryTotal = document.getElementById('summary-total')
 
 const confirmButton = document.getElementById('confirm-button')
 const message = document.getElementById('message')
@@ -83,18 +83,29 @@ cours.forEach((cour) => {
 //  - Faut-il un écouteur par carte, ou un seul sur le conteneur ? Quels sont les avantages ?
 //  - Comment retrouver le cours à partir de l'id lu dans la carte ?
 //  - Que faut-il réinitialiser quand on change de cours ?
+console.log(cours.creneaux);
+
 const containerItems = document.querySelectorAll('#courses-container article');
-containerItems.forEach((carte) =>{
-  carte.addEventListener('click', ()=>{
-    containerItems.forEach((item)=>{
+containerItems.forEach((carte) => {
+  carte.addEventListener('click', () => {
+    containerItems.forEach((item) => {
       item.classList.remove('ring-2', 'ring-teal-600');
     });
     carte.classList.add('ring-2', 'ring-teal-600');
     coursId = carte.dataset.id;
     courseTitle.textContent = coursId;
+
+    let selectedCourse = cours.find(item => item.id == coursId);
+    slotsContainer.innerHTML = '';
+    selectedCourse.creneaux.forEach(creneux => {
+      slotsContainer.innerHTML += `
+        <button type="button" class="rounded-xl border px-4 py-2 text-sm font-medium transition border-teal-600 bg-teal-600 text-white" data-id=${creneux.id}>
+            ${creneux.jour} <span class="font-normal">${creneux.heure}</span>
+        </button>
+      `
+    })
   });
 });
-
 
 // ------------------------------------------------------------
 // ÉTAPE 5 : Afficher et sélectionner un créneau (US03)
