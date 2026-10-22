@@ -47,7 +47,9 @@ const message = document.getElementById('message')
 
 const cart_choises = [];
 let coursId;
+let btnId;
 let selectedCourse;
+let buttonSelected;
 
 // ------------------------------------------------------------
 // ÉTAPE 3 : Afficher les cours (US01)
@@ -80,50 +82,72 @@ cours.forEach((cour) => {
 //  - Le cours sélectionné doit être identifiable visuellement
 //    (observez les classes de la carte statique sélectionnée).
 //  - Un seul cours peut être sélectionné à la fois.
-// Questions :
+// Questions : 
 //  - Faut-il un écouteur par carte, ou un seul sur le conteneur ? Quels sont les avantages ?
 //  - Comment retrouver le cours à partir de l'id lu dans la carte ?
 //  - Que faut-il réinitialiser quand on change de cours ?
-console.log(cours.creneaux);
 
 const containerItems = document.querySelectorAll('#courses-container article');
+
 containerItems.forEach((carte) => {
   carte.addEventListener('click', () => {
-      changeCartStyle(carte)
-      coursId = carte.dataset.id;
-      selectedCourse = cours.find(item => item.id == coursId);
-      courseTitle.textContent = selectedCourse.nom;
-      displaySlots(selectedCourse);
+    changeCartStyle(carte)
+    coursId = carte.dataset.id;
+    selectedCourse = cours.find(item => item.id == coursId);
+    courseTitle.textContent = selectedCourse.nom;
+    displaySlots(selectedCourse);
+    buttonLisner(slotsButtons);
+  });
+});
+
+function changeCartStyle(carte) {
+  containerItems.forEach((item) => {
+    item.classList.remove('ring-2', 'ring-teal-600');
+  });
+  carte.classList.add('ring-2', 'ring-teal-600');
+}
+    
+// ------------------------------------------------------------
+// ÉTAPE 5 : Afficher et sélectionner un créneau (US03)
+// ------------------------------------------------------------
+// TODO : affichez les créneaux du cours sélectionné.
+//  - Mettez à jour #selected-course-title avec le nom du cours.
+//  - Le créneau choisi doit être identifiable visuellement.
+//  - Changer de créneau doit vider la sélection d'emplacements.
+// Questions :
+//  - Quand cette fonction doit-elle être appelée ?
+//  - Que se passe-t-il si aucun cours n'est encore sélectionné ?
+
+function buttonLisner(buttons) {
+  buttons.forEach(slote => {
+    slote.addEventListener('click', () => {
+      changButnsStyle(slote);
+      btnId = slote.dataset.id
+      buttonSelected = cours.creneaux.find(i => i.id == btnId)
     });
   });
-  function changeCartStyle(carte) {
-    containerItems.forEach((item) => {
-      item.classList.remove('ring-2', 'ring-teal-600');
-    });
-    carte.classList.add('ring-2', 'ring-teal-600');
+}
 
-  }
-
-  // ------------------------------------------------------------
-  // ÉTAPE 5 : Afficher et sélectionner un créneau (US03)
-  // ------------------------------------------------------------
-  // TODO : affichez les créneaux du cours sélectionné.
-  //  - Mettez à jour #selected-course-title avec le nom du cours.
-  //  - Le créneau choisi doit être identifiable visuellement.
-  //  - Changer de créneau doit vider la sélection d'emplacements.
-  // Questions :
-  //  - Quand cette fonction doit-elle être appelée ?
-  //  - Que se passe-t-il si aucun cours n'est encore sélectionné ?
-  function displaySlots(slotes) {
-    slotsContainer.innerHTML = '';
-    slotes.creneaux.forEach(creneux => {
-      slotsContainer.innerHTML += `
-        <button type="button" class="rounded-xl border px-4 py-2 text-sm font-medium transition border-teal-600 bg-teal-600 text-white" data-id=${creneux.id}>
+function displaySlots(slotes) {
+  slotsContainer.innerHTML = '';
+  slotes.creneaux.forEach(creneux => {
+    slotsContainer.innerHTML += `
+        <button type="button" class="rounded-xl border px-4 py-2 text-sm font-medium transition  border-teal-600 " data-id=${creneux.id}>
             ${creneux.jour} <span class="font-normal">${creneux.heure}</span>
         </button>
       `
-    });
-  }
+  });
+}
+const slotsButtons = document.querySelectorAll('#slots-container button')
+
+console.log(slotsButtons);
+
+function changButnsStyle(slote) {
+  slotsButtons.forEach(btn => {
+    btn.classList.remove('bg-teal-600', 'text-white');
+  });
+  slote.classList.add('bg-teal-600', 'text-white');
+}
 
 // ------------------------------------------------------------
 // ÉTAPE 6 : Afficher le plan de la salle (US04)
