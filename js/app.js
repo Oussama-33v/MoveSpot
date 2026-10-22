@@ -46,6 +46,7 @@ const message = document.getElementById('message')
 // Indice : pourquoi un tableau est-il adapté pour les emplacements choisis ?
 
 const cart_choises = [];
+let coursId;
 
 // ------------------------------------------------------------
 // ÉTAPE 3 : Afficher les cours (US01)
@@ -89,8 +90,12 @@ containerItems.forEach((carte) =>{
       item.classList.remove('ring-2', 'ring-teal-600');
     });
     carte.classList.add('ring-2', 'ring-teal-600');
+    coursId = carte.dataset.id;
+    courseTitle.textContent = coursId;
   });
 });
+
+
 // ------------------------------------------------------------
 // ÉTAPE 5 : Afficher et sélectionner un créneau (US03)
 // ------------------------------------------------------------
