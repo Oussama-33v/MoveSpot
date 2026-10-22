@@ -89,38 +89,41 @@ console.log(cours.creneaux);
 const containerItems = document.querySelectorAll('#courses-container article');
 containerItems.forEach((carte) => {
   carte.addEventListener('click', () => {
+      changeCartStyle(carte)
+      coursId = carte.dataset.id;
+      selectedCourse = cours.find(item => item.id == coursId);
+      courseTitle.textContent = selectedCourse.nom;
+      displaySlots(selectedCourse);
+    });
+  });
+  function changeCartStyle(carte) {
     containerItems.forEach((item) => {
       item.classList.remove('ring-2', 'ring-teal-600');
     });
     carte.classList.add('ring-2', 'ring-teal-600');
 
-    coursId = carte.dataset.id;
-    selectedCourse = cours.find(item => item.id == coursId);
-    courseTitle.textContent = selectedCourse.nom;
-    displaySlots(selectedCourse);
-  });
-});
+  }
 
-// ------------------------------------------------------------
-// ÉTAPE 5 : Afficher et sélectionner un créneau (US03)
-// ------------------------------------------------------------
-// TODO : affichez les créneaux du cours sélectionné.
-//  - Mettez à jour #selected-course-title avec le nom du cours.
-//  - Le créneau choisi doit être identifiable visuellement.
-//  - Changer de créneau doit vider la sélection d'emplacements.
-// Questions :
-//  - Quand cette fonction doit-elle être appelée ?
-//  - Que se passe-t-il si aucun cours n'est encore sélectionné ?
-function displaySlots(slotes) {
-  slotsContainer.innerHTML = '';
-  slotes.creneaux.forEach(creneux => {
-    slotsContainer.innerHTML += `
+  // ------------------------------------------------------------
+  // ÉTAPE 5 : Afficher et sélectionner un créneau (US03)
+  // ------------------------------------------------------------
+  // TODO : affichez les créneaux du cours sélectionné.
+  //  - Mettez à jour #selected-course-title avec le nom du cours.
+  //  - Le créneau choisi doit être identifiable visuellement.
+  //  - Changer de créneau doit vider la sélection d'emplacements.
+  // Questions :
+  //  - Quand cette fonction doit-elle être appelée ?
+  //  - Que se passe-t-il si aucun cours n'est encore sélectionné ?
+  function displaySlots(slotes) {
+    slotsContainer.innerHTML = '';
+    slotes.creneaux.forEach(creneux => {
+      slotsContainer.innerHTML += `
         <button type="button" class="rounded-xl border px-4 py-2 text-sm font-medium transition border-teal-600 bg-teal-600 text-white" data-id=${creneux.id}>
             ${creneux.jour} <span class="font-normal">${creneux.heure}</span>
         </button>
       `
-  });
-}
+    });
+  }
 
 // ------------------------------------------------------------
 // ÉTAPE 6 : Afficher le plan de la salle (US04)
